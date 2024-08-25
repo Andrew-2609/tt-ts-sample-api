@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "module": "CommonJS",
+    "target": "es2020",
+    "esModuleInterop": true,
+    "allowJs": true,
+    "typeRoots": ["./node_modules/@types", "./src/@types"],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "baseUrl": "src",
+    "paths": {
+      "@/*": ["*"]
+    },
+    "resolveJsonModule": true
+  }
+}
