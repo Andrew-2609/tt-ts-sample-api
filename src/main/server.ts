@@ -1,8 +1,9 @@
 import { logger } from '@/modules/common/logger'
-import { APP_CONFIG, loadEnvironment } from '../modules/common/config/environment'
-import { createExpressApp } from './app'
+import { APP_CONFIG, loadEnvironment } from '../modules/common/config'
+import { ServicesLoader, createExpressApp } from './app'
 ;(async (): Promise<void> => {
   await loadEnvironment()
+  await new ServicesLoader().load()
 
   const app = createExpressApp()
 
