@@ -2,6 +2,9 @@ import { logger } from '../logger'
 
 type CONFIG = Partial<{
   APP_PORT: string
+  AWS_REGION: string
+  AWS_ENDPOINT: string
+  AWS_SQS_EMPLOYEES_QUEUE_URL: string
 }>
 
 export const APP_CONFIG: CONFIG = {}
@@ -19,4 +22,7 @@ export const loadEnvironment = async (): Promise<void> => {
 
 const loadLocalEnvironment = () => {
   APP_CONFIG.APP_PORT = process.env.APP_PORT
+  APP_CONFIG.AWS_REGION = process.env.AWS_REGION
+  APP_CONFIG.AWS_ENDPOINT = process.env.AWS_ENDPOINT
+  APP_CONFIG.AWS_SQS_EMPLOYEES_QUEUE_URL = process.env.AWS_SQS_EMPLOYEES_QUEUE_URL
 }

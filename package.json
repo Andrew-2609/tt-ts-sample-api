@@ -5,11 +5,13 @@
   "main": "index.js",
   "scripts": {
     "up": "docker-compose up -d && docker logs -f tt_ts_sample_api",
+    "up:build": "docker-compose up --build -d && docker logs -f tt_ts_sample_api",
     "start:local": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only --ignore-watch node_modules src/main/server.ts"
   },
   "author": "Andrew Silva",
   "license": "MIT",
   "dependencies": {
+    "@aws-sdk/client-sqs": "3.398.0",
     "compression": "1.7.4",
     "express": "4.17.3",
     "express-async-errors": "3.1.1",
