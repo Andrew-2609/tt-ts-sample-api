@@ -6,11 +6,11 @@ import { healthHandler } from './routes/health'
 
 export const createExpressApp = (): Express => {
   const app = express()
-  
+
   // Setup global middlewares
   app.use(compression())
   app.use(express.json())
-  
+
   // Configure app
   app.disable('x-powered-by')
 
