@@ -1,7 +1,10 @@
 import { APP_CONFIG } from '@/modules/common/config/environment'
 import { ErrorCode, InternalServerError } from '@/modules/common/error'
 import {
+  DeleteMessageCommand,
+  DeleteMessageCommandOutput,
   GetQueueAttributesCommand,
+  Message,
   ReceiveMessageCommand,
   ReceiveMessageCommandOutput,
   SQSClient,
@@ -39,10 +42,25 @@ export class SQSEngine {
       QueueUrl: this.queueUrl,
       WaitTimeSeconds: this.waitTimeSeconds,
       VisibilityTimeout: this.visibilityTimeout,
-      AttributeNames: ['MessageGroupId', 'ApproximateReceiveCount']
+      AttributeNames: ['MessageGroupId']
     })
 
     return await this.executeCommand<ReceiveMessageCommandOutput>(command)
+  }
+
+  async deleteMessage(message: Message): Promise<void> {
+    const command = new DeleteMessageCommand({
+      QueueUrl: this.queueUrl,
+      ReceiptHandle: message.ReceiptHandle
+    })
+
+    const { $metadata } = await this.executeCommand<DeleteMessageCommandOutput>(command)
+
+    if ($metadata.httpStatusCode !== 200) {
+      throw new InternalServerError({
+        message: `Message was not successfully deleted: ${$metadata.requestId}`
+      })
+    }
   }
 
   private async executeCommand<T extends ServiceOutputTypes>(command: any): Promise<T> {

@@ -4,6 +4,7 @@ import { SQSEngine } from './sqs-engine'
 
 type ConsumerConfiguration = {
   queueUrl: string
+  consumerHandler: Messaging.ConsumerHandler
   pollingWaitTimeInSeconds: number
   waitTimeSeconds: number
   visibilityTimeout: number
@@ -32,10 +33,17 @@ export class AWSSQSEmployeesConsumer extends EventEmitter implements Messaging.B
   }
 
   private async poll(): Promise<void> {
-    const message = await this.sqsEngine.receiveMessage()
+    const commandOutput = await this.sqsEngine.receiveMessage()
 
-    if (!this.sqsEngine.hasMessages(message)) {
+    if (!this.sqsEngine.hasMessages(commandOutput)) {
       return
     }
+
+    const message = commandOutput.Messages[0]
+
+    const parsedMessage = JSON.parse(message.Body)
+
+    await this.config.consumerHandler.handle(parsedMessage)
+    await this.sqsEngine.deleteMessage(message)
   }
 }
