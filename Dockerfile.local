@@ -1,0 +1,9 @@
+FROM node:20.9.0-alpine
+
+WORKDIR /home/tt_ts_sample_api
+
+RUN yarn install
+
+COPY . .
+
+CMD yarn start:local

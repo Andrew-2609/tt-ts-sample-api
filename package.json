@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "TODO",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "up": "docker-compose up",
+    "start:local": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only --ignore-watch node_modules src/main/server.ts"
+  },
   "author": "Andrew Silva",
   "license": "MIT",
   "dependencies": {

@@ -1,0 +1,14 @@
+version: '3.1'
+
+services:
+  api:
+    container_name: tt_ts_sample_api
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: Dockerfile.local
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+    volumes:
+      - .:/home/tt_ts_sample_api
