@@ -4,7 +4,7 @@ FROM node:20.9.0-alpine AS build
 # Sets the working directory
 WORKDIR /home/app
 
-# Copy the project files necessary to run the project
+# Copies the project files necessary to run the project
 COPY . .
 
 # RUN STAGE

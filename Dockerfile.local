@@ -1,9 +1,14 @@
+# RUN STAGE
 FROM node:20.9.0-alpine
 
+# Sets the working directory
 WORKDIR /home/tt_ts_sample_api
 
+# Install the dependencies
 RUN yarn install
 
+# Copies the project files necessary to run the project
 COPY . .
 
+# Starts the application
 CMD yarn start:local
