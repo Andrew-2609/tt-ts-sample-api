@@ -30,7 +30,7 @@ Like I said above, as an API this project has a single route, which is a health 
 
 Even though there's a single route, I wished to implement more of them, and this project allows this by the usage of [express](https://github.com/expressjs/express). It's the only Node.js web framework I've ever used, but I believe I could easily learn new ones if needed.
 
-## Messaging
+## 📨 Messaging
 
 This project was designed to consume an [AWS SQS](https://aws.amazon.com/pt/sqs/) queue, by polling for messages, reading them and handling them. The messaging module is pretty extensible and has a logic that can be reutilized in a variety of SQS queues polling use cases.
 
@@ -57,6 +57,10 @@ I really wanted to implement all kinds of tests for this project, since I have a
 I also wanted to implement a conteinerized SonarQube for this API, but I had a hard time configuring this bloody thing locally many times, so I didn't have the patience nor the time to try to implement it during this weekend.
 
 Just know that it was a nice goal to achieve, and that in a real world project there would be at least a `sonar-project.properties` file to enable SonarQube to capture coverage data during a pipeline, for example.
+
+## Error Handling
+
+I wanted to implemented a centralized error handling for this application, but the time wasn't enough to prioritize this. So you may notice that, once an error occurs, it'll simply go straight to the stdout with a big unhandled stack. At least, I implemented a custom error module to format errors a little.
 
 ### Message Reprocessing
 
