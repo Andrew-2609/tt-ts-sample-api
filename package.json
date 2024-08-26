@@ -8,7 +8,11 @@
     "up:build": "docker-compose up --build -d && docker logs -f tt_ts_sample_api",
     "start:local": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only --ignore-watch node_modules src/main/server.ts"
   },
-  "author": "Andrew Silva",
+  "author": {
+    "name": "Andrew Silva",
+    "email": "andrew.agoravai@gmail.com",
+    "url": "https://www.linkedin.com/in/andrew-2609/?locale=en_US"
+  },
   "license": "MIT",
   "dependencies": {
     "@aws-sdk/client-sqs": "3.398.0",
