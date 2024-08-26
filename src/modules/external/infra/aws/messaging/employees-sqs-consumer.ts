@@ -22,9 +22,7 @@ export class AWSSQSEmployeesConsumer extends EventEmitter implements Messaging.B
       this.config.visibilityTimeout
     )
 
-    this.once('start', () => {
-      setInterval(async () => await this.poll(), this.config.pollingWaitTimeInSeconds * 1000)
-    })
+    this.once('start', async () => await this.poll())
   }
 
   async consume(): Promise<void> {
@@ -33,6 +31,8 @@ export class AWSSQSEmployeesConsumer extends EventEmitter implements Messaging.B
   }
 
   private async poll(): Promise<void> {
+    setTimeout(async () => await this.poll(), this.config.pollingWaitTimeInSeconds * 1000)
+
     const commandOutput = await this.sqsEngine.receiveMessage()
 
     if (!this.sqsEngine.hasMessages(commandOutput)) {
