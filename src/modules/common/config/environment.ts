@@ -5,6 +5,7 @@ type CONFIG = Partial<{
   AWS_REGION: string
   AWS_ENDPOINT: string
   AWS_SQS_EMPLOYEES_QUEUE_URL: string
+  EMPLOYEES_APP_URL: string
 }>
 
 export const APP_CONFIG: CONFIG = {}
@@ -25,4 +26,5 @@ const loadLocalEnvironment = () => {
   APP_CONFIG.AWS_REGION = process.env.AWS_REGION
   APP_CONFIG.AWS_ENDPOINT = process.env.AWS_ENDPOINT
   APP_CONFIG.AWS_SQS_EMPLOYEES_QUEUE_URL = process.env.AWS_SQS_EMPLOYEES_QUEUE_URL
+  APP_CONFIG.EMPLOYEES_APP_URL = process.env.EMPLOYEES_APP_URL
 }
