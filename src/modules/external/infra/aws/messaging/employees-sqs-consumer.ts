@@ -12,6 +12,7 @@ type ConsumerConfiguration = {
 
 export class AWSSQSEmployeesConsumer extends EventEmitter implements Messaging.Broker.Consumer {
   private readonly sqsEngine: SQSEngine
+  private pollingIntervalID: NodeJS.Timeout
 
   constructor(private readonly config: ConsumerConfiguration) {
     super()
@@ -22,7 +23,17 @@ export class AWSSQSEmployeesConsumer extends EventEmitter implements Messaging.B
       this.config.visibilityTimeout
     )
 
-    this.once('start', async () => await this.poll())
+    this.once('start', async () => {
+      this.pollingIntervalID = setInterval(
+        async () => await this.poll(),
+        this.config.pollingWaitTimeInSeconds * 1000
+      )
+    })
+
+    this.once('stop', () => {
+      clearInterval(this.pollingIntervalID)
+      this.pollingIntervalID = undefined
+    })
   }
 
   async consume(): Promise<void> {
@@ -31,19 +42,17 @@ export class AWSSQSEmployeesConsumer extends EventEmitter implements Messaging.B
   }
 
   private async poll(): Promise<void> {
-    setTimeout(async () => await this.poll(), this.config.pollingWaitTimeInSeconds * 1000)
-
     const commandOutput = await this.sqsEngine.receiveMessage()
 
     if (!this.sqsEngine.hasMessages(commandOutput)) {
       return
     }
 
-    const message = commandOutput.Messages[0]
+    for (const message of commandOutput.Messages) {
+      const parsedMessage = JSON.parse(message.Body)
 
-    const parsedMessage = JSON.parse(message.Body)
-
-    await this.config.consumerHandler.handle(parsedMessage)
-    await this.sqsEngine.deleteMessage(message)
+      await this.config.consumerHandler.handle(parsedMessage)
+      await this.sqsEngine.deleteMessage(message)
+    }
   }
 }
