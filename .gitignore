@@ -4,4 +4,5 @@
 # Generated Files
 node_modules/
 dist/
+coverage/
 yarn-error.log
