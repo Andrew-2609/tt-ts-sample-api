@@ -14,6 +14,7 @@
     "up:test": "docker-compose --env-file .env.test -f docker-compose.testing.yml up -d",
     "down:test": "docker-compose -f docker-compose.testing.yml down",
     "test": "docker exec tt_ts_sample_api_test node --expose-gc --no-compilation-cache ./node_modules/.bin/jest --runInBand --detectOpenHandles --colors --forceExit",
+    "test:coverage": "yarn test --coverage",
     "test:unit": "yarn test -c jest-config-unit.js"
   },
   "author": {
