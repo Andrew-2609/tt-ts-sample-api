@@ -27,7 +27,9 @@ export class SendNewEmployeeConsumerHandler implements Messaging.ConsumerHandler
 
       if (response.status !== StatusCodes.CREATED) {
         throw new InternalServerError({
-          message: `Employee registration service returned unexpected response: ${responseJson}`,
+          message: `Employee registration service returned unexpected response: ${JSON.stringify(
+            responseJson
+          )}`,
           code: ErrorCode.EMPLOYEE_REGISTRATION_FAILED
         })
       }
