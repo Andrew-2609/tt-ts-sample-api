@@ -42,7 +42,7 @@ export class SQSEngine {
       QueueUrl: this.queueUrl,
       WaitTimeSeconds: this.waitTimeSeconds,
       VisibilityTimeout: this.visibilityTimeout,
-      AttributeNames: ['MessageGroupId']
+      MaxNumberOfMessages: 10
     })
 
     return await this.executeCommand<ReceiveMessageCommandOutput>(command)
