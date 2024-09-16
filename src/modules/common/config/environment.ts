@@ -21,7 +21,7 @@ export const loadEnvironment = async (): Promise<void> => {
   logger.info({ message: 'Environment successfully loaded' })
 }
 
-const loadLocalEnvironment = () => {
+const loadLocalEnvironment = (): void => {
   APP_CONFIG.APP_PORT = process.env.APP_PORT
   APP_CONFIG.AWS_REGION = process.env.AWS_REGION
   APP_CONFIG.AWS_ENDPOINT = process.env.AWS_ENDPOINT
